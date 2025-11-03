@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rori's Kitchen — Info</title>
+    <meta name="description" content="Rori's Kitchen — hours, location, contact and catering information." />
+    <style>
+        :root{
+            --bg:#fff8f2;
+            --accent:#c94f2c;
+            --muted:#6b6b6b;
+            --card:#ffffff;
+            --radius:10px;
+            --max-width:1100px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#222}
+        .wrap{max-width:var(--max-width);margin:28px auto;padding:20px}
+        header{display:flex;align-items:center;gap:18px}
+        .brand{display:flex;gap:12px;align-items:center}
+        .logo{
+            width:68px;height:68px;border-radius:12px;background:var(--accent);
+            display:grid;place-items:center;color:#fff;font-weight:700;font-size:22px;
+            box-shadow:0 6px 18px rgba(201,79,44,.18);
+        }
+        nav{margin-left:auto}
+        nav a{margin-left:14px;text-decoration:none;color:var(--muted);font-weight:600}
+        .hero{
+            margin-top:18px;background:var(--card);padding:20px;border-radius:var(--radius);
+            display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:center;
+            box-shadow:0 8px 28px rgba(0,0,0,.06)
+        }
+        .hero h1{margin:0;color:var(--accent)}
+        .hero p{margin:8px 0;color:var(--muted)}
+        .card{background:var(--card);padding:16px;border-radius:12px}
+        .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+        .hours li{list-style:none;padding:8px 0;border-bottom:1px dashed #eee;color:var(--muted)}
+        .address{font-weight:600;color:#222}
+        .map{width:100%;height:180px;background:#eee;border-radius:8px;display:grid;place-items:center;color:#777}
+        footer{opacity:.85;margin-top:22px;padding-top:18px;border-top:1px solid #f0e6e3;color:var(--muted);font-size:14px}
+        @media (max-width:760px){
+            .hero{grid-template-columns:1fr;gap:12px}
+            nav{margin-left:0;margin-top:10px}
+        }
+        .btn{
+            display:inline-block;padding:10px 14px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700
+        }
+        .small{font-size:13px;color:var(--muted)}
+    </style>
+</head>
+<body>
+    <div class="wrap" role="main">
+        <header>
+            <div class="brand">
+                <div class="logo" aria-hidden="true">RK</div>
+                <div>
+                    <div style="font-weight:800;color:var(--accent)">Rori's Kitchen</div>
+                    <div class="small">Homestyle meals • Local ingredients</div>
+                </div>
+            </div>
+
+            <nav aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="info.html" aria-current="page" style="color:var(--accent)">Info</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero" aria-labelledby="info-heading">
+            <div>
+                <h1 id="info-heading">Info & Practical Details</h1>
+                <p>Everything you need to know about visiting Rori's Kitchen — hours, location, ordering and dietary notes. If you need anything else, use the contact details on the right.</p>
+
+                <div class="info-grid" style="margin-top:14px">
+                    <div class="card">
+                        <h3 style="margin:0 0 8px 0">Opening Hours</h3>
+                        <ul class="hours" aria-label="Opening hours">
+                            <li><strong>Mon–Fri</strong> — 11:00 — 20:30</li>
+                            <li><strong>Saturday</strong> — 10:00 — 21:00</li>
+                            <li><strong>Sunday</strong> — 10:00 — 18:00</li>
+                            <li style="border-bottom:0"><em>Closed on major holidays</em></li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin:0 0 8px 0">Dietary & Allergens</h3>
+                        <p class="small">We offer vegetarian and gluten-free options. Please notify staff of any allergies. Ingredient lists are available on request.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin:0 0 8px 0">Catering & Private Events</h3>
+                        <p class="small">Small catering packages and private bookings available. Send requests via the contact page or call ahead for a quote.</p>
+                    </div>
+                </div>
+            </div>
+
+            <aside style="display:flex;flex-direction:column;gap:12px">
+                <div class="card" style="text-align:left">
+                    <div class="small">Location</div>
+                    <div class="address">145 Rorich street<br/>newlands Randburg 2092</div>
+                    <div class="small" style="margin-top:8px">Phone: <a href="tel:+1234567890" style="color:var(--accent);text-decoration:none">+27 69 743 0343</a></div>
+                    <div style="margin-top:12px"><a class="btn" href="contact.html">Contact Us</a></div>
+                </div>
+
+                <div class="card">
+                    <div class="small">Map</div>
+                    <div class="small" style="margin-top:8px">Street parking available. Close to public transport.</div>
+                </div>
+            </aside>
+        </section>
+
+        <section style="margin-top:18px" aria-labelledby="notes">
+            <h2 id="notes" style="margin:0 0 8px 0">Notes</h2>
+            <p class="small">Prices and opening hours may change. For the latest information, check the menu or contact us directly. Photography and dish styling are for illustrative purposes.</p>
+        </section>
+
+        <footer>
+            <div>© <span id="year"></span> Rori's Kitchen — All rights reserved</div>
+        </footer>
+    </div>
+
+    <script>
+        // small JS: set year and keep focusable elements accessible
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html></div></aside></div>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rori's Kitchen — Gallery</title>
+    <link rel="stylesheet" href="css-assets/styles.css" /> 
+    <style>
+        :root{
+            --max-width:1100px;
+            --pad:1rem;
+            --gap:12px;
+            --card-radius:8px;
+            --bg:#ffffff;
+            --muted:#666;
+            --accent:#db3cce;
+        }
+        html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#222;background:#f6f7f9;}
+        .wrap{max-width:var(--max-width);margin:24px auto;padding:24px;background:var(--bg);border-radius:10px;box-shadow:0 8px 30px rgba(20,20,20,0.06);}
+
+        header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;}
+        .site-title{font-weight:700;color:var(--accent);text-decoration:none;font-size:1.125rem;}
+        .crumbs a{color:var(--muted);text-decoration:none;margin-left:10px;font-size:0.95rem;}
+
+        .gallery{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--gap);align-items:stretch;}
+        .card{border-radius:var(--card-radius);overflow:hidden;background:#f8f8f8;box-shadow:0 4px 18px rgba(0,0,0,0.04);position:relative;}
+        .card img{display:block;width:100%;height:220px;object-fit:cover;transition:transform .35s ease,filter .35s ease;}
+        .card:hover img{transform:scale(1.05);filter:brightness(.95);}
+
+        .card-link{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,0.7);color:#fff;padding:8px 10px;border-radius:6px;text-decoration:none;font-size:0.9rem;z-index:2;}
+        .card-link:hover{background:rgba(0,0,0,0.85);}
+
+        footer{margin-top:18px;color:var(--muted);font-size:0.95rem;text-align:center;padding-top:10px;border-top:1px solid #f0f0f0;}
+        @media (max-width:480px){.card img{height:160px}}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="container">
+            <div>
+                <a class="site-title" href="index.html">Rori's Kitchen</a>
+                <div class="crumbs"><a href="index.html">Home</a> · <a href="gallery.html">Gallery</a></div>
+            </div>
+            <nav>
+                <a href="index.html" class="btn-secondary">← Back</a>
+            </nav>
+        </header>
+
+        <main class="container">
+            <section class="gallery" id="gallery">
+                <figure class="card">
+                    <img src="_images/dish1.jpg" alt="Dish 1">
+                    <a class="card-link" href="dish1.html" aria-label="Open Dish 1 page">View details</a>
+                </figure>
+                <figure class="card">
+                    <img src="_images/dish2.jpg" alt="Dish 2">
+                    <a class="card-link" href="dish2.html" aria-label="Open Dish 2 page">View details</a>
+                </figure>
+                <figure class="card">
+                    <img src="_images/dish3.jpg" alt="Dish 3">
+                    <a class="card-link" href="dish3.html" aria-label="Open Dish 3 page">View details</a>
+                </figure>
+                <figure class="card">
+                    <img src="_images/dish4.jpg" alt="Dish 4">
+                    <a class="card-link" href="dish4.html" aria-label="Open Dish 4 page">View details</a>
+                </figure>
+                <figure class="card">
+                    <img src="_images/dish5.jpg" alt="Dish 5">
+                    <a class="card-link" href="dish5.html" aria-label="Open Dish 5 page">View details</a>
+                </figure>
+                <figure class="card">
+                    <img src="_images/dish6.jpg" alt="Dish 6">
+                    <a class="card-link" href="dish6.html" aria-label="Open Dish 6 page">View details</a>
+                </figure>
+            </section>
+
+            <footer>
+                Tap an image to view larger. <a href="index.html">Back to home</a>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+        <img id="lbImg" src="" alt="">
+    </div>
+
+    <script src="js/main.js" defer></script> <!-- ensure main script is loaded -->
+    <script>
+        // Basic lightbox logic: click any gallery image to open it in the overlay.
+        document.querySelectorAll('.card img').forEach(img => {
+            img.addEventListener('click', () => {
+                const lb = document.getElementById('lightbox');
+                const lbImg = document.getElementById('lbImg');
+                lbImg.src = img.src;
+                lbImg.alt = img.alt || '';
+                lb.classList.add('show');
+                lb.setAttribute('aria-hidden', 'false');
+            });
+        });
+
+        document.getElementById('lbClose').addEventListener('click', () => {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('show');
+            lb.setAttribute('aria-hidden', 'true');
+            document.getElementById('lbImg').src = '';
+        });
+
+        // Close when clicking the overlay background
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') document.getElementById('lbClose').click();
+        });
+
+        // keyboard: Escape to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const lb = document.getElementById('lightbox');
+                if (lb.classList.contains('show')) document.getElementById('lbClose').click();
+            }
+        });
+    </script>
+</body>
+</html>

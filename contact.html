@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact — Roris Kitchen</title>
+    <meta name="description" content="Contact Roris Kitchen — send a message, ask about orders or catering." />
+    <style>
+        :root{
+            --bg:#f7f7fb; --card:#ffffff; --accent:#c24c2e; --muted:#6b7280; --radius:12px;
+            --max-width:900px; --pad:18px;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+            background:linear-gradient(180deg,#fff 0%,var(--bg) 100%); color:#111;
+            display:flex; align-items:center; justify-content:center; padding:48px;
+        }
+        .container{
+            width:100%; max-width:var(--max-width); background:var(--card);
+            border-radius:var(--radius); box-shadow:0 6px 28px rgba(16,24,40,0.08);
+            padding:calc(var(--pad) + 6px);
+            display:grid; gap:18px;
+            grid-template-columns: 1fr;
+        }
+        header{display:flex; align-items:center; gap:12px}
+        .logo{
+            width:56px; height:56px; border-radius:10px; background:linear-gradient(135deg,var(--accent),#ff8a66);
+            display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700;
+            font-size:18px;
+        }
+        h1{margin:0; font-size:20px}
+        p.lead{margin:2px 0 0; color:var(--muted); font-size:14px}
+        form{display:grid; gap:12px}
+        .grid-2{display:grid; gap:12px; grid-template-columns:repeat(2,1fr)}
+        label{font-size:13px; color:var(--muted); display:block}
+        input[type="text"], input[type="email"], input[type="tel"], textarea, select{
+            width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e6e7ee;
+            font-size:15px; background:#fff; color:#0b1220;
+        }
+        textarea{min-height:140px; resize:vertical}
+        .row{display:flex; gap:8px; align-items:center}
+        .btn{
+            display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff;
+            border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:600;
+            box-shadow:0 6px 18px rgba(194,76,46,0.16);
+        }
+        .btn.secondary{background:#eef2ff; color:#2b2b3a; box-shadow:none}
+        .muted{color:var(--muted); font-size:13px}
+        .small{font-size:12px}
+        .footer-note{display:flex; justify-content:space-between; align-items:center; gap:12px}
+        .success{
+            display:none; padding:12px; border-radius:8px; background:#ecfdf5; color:#065f46; font-weight:600;
+        }
+        .error{color:#dc2626; font-size:13px}
+        @media (min-width:760px){
+            .container{grid-template-columns:360px 1fr; align-items:start}
+            header{grid-column:1 / -1}
+        }
+    </style>
+</head>
+<body>
+    <main class="container" aria-labelledby="contactHeading">
+        <header>
+            <div class="logo" aria-hidden="true">RK</div>
+            <div>
+                <h1 id="contactHeading">Contact Roris Kitchen</h1>
+                <p class="lead">Questions about orders, catering, or menu? Send us a message and we'll get back within 24 hours.</p>
+            </div>
+        </header>
+
+        <section aria-labelledby="contactFormHeading" style="padding:6px;">
+            <h2 id="contactFormHeading" style="font-size:16px; margin:0 0 10px">Send a message</h2>
+            <form id="contactForm" action="#" method="post" novalidate>
+                <div class="grid-2">
+                    <div>
+                        <label for="name">Full name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your full name" />
+                        <div class="error" id="nameError" aria-live="polite"></div>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+                        <div class="error" id="emailError" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label for="phone">Phone (optional)</label>
+                        <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+27 000000000" pattern="[\d+\s()-]{7,}" />
+                        <div class="small muted">Include country code for calls</div>
+                    </div>
+                    <div>
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">— Choose —</option>
+                            <option>Order inquiry</option>
+                            <option>Catering</option>
+                            <option>Partnership</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell us how we can help..." maxlength="2000"></textarea>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+                        <div class="muted small">Be concise — max 2000 characters</div>
+                        <div class="muted small" id="charCount">0 / 2000</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:8px; align-items:center; margin-top:6px;">
+                    <button class="btn" type="submit">Send message</button>
+                    <button class="btn secondary" type="reset">Reset</button>
+                    <div class="success" id="successMsg" role="status" aria-live="polite">Message sent — thank you!</div>
+                </div>
+
+                <div class="footer-note" style="margin-top:10px;">
+                    <div class="muted small">We respect your privacy. Your info will not be shared.</div>
+                    <div class="muted small">Response time: ~24 hours</div>
+                </div>
+            </form>
+        </section>
+
+        <aside style="padding:6px;">
+            <h3 style="margin:0 0 8px 0; font-size:15px">Contact details</h3>
+            <p class="muted small" style="margin:0 0 12px">Phone: <strong>+27 67 886 1795</strong><br/>Email: <strong>hello@roriskitchen.example</strong></p>
+
+            <h4 style="margin:0 0 8px 0; font-size:14px">Visit</h4>
+            <address class="muted small" style="margin:0 0 12px">123 Flavor Street<br/>Johannesburg, South Africa</address>
+
+            <div style="font-size:13px; color:var(--muted)">Office hours: Mon–Fri 09:00–18:00</div>
+        </aside>
+    </main>
+
+    <script>
+        (function(){
+            const form = document.getElementById('contactForm');
+            const nameEl = document.getElementById('name');
+            const emailEl = document.getElementById('email');
+            const messageEl = document.getElementById('message');
+            const charCount = document.getElementById('charCount');
+            const successMsg = document.getElementById('successMsg');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+
+            // Live char count
+            messageEl.addEventListener('input', () => {
+                charCount.textContent = messageEl.value.length + ' / ' + (messageEl.maxLength || 2000);
+            });
+
+            // Basic client-side validation
+            function validate() {
+                let ok = true;
+                nameError.textContent = '';
+                emailError.textContent = '';
+
+                if (!nameEl.value.trim()) {
+                    nameError.textContent = 'Please enter your name.';
+                    ok = false;
+                }
+                if (!emailEl.checkValidity()) {
+                    emailError.textContent = 'Please enter a valid email.';
+                    ok = false;
+                }
+                if (!messageEl.value.trim()) {
+                    messageEl.setCustomValidity('Please enter a message.');
+                    ok = false;
+                } else {
+                    messageEl.setCustomValidity('');
+                }
+                return ok;
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validate()) return;
+
+                // Prepare payload
+                const data = {
+                    name: nameEl.value.trim(),
+                    email: emailEl.value.trim(),
+                    phone: (document.getElementById('phone').value || '').trim(),
+                    subject: document.getElementById('subject').value,
+                    message: messageEl.value.trim(),
+                    ts: new Date().toISOString()
+                };
+
+                // Show optimistic success while attempting to POST to /contact
+                successMsg.style.display = 'inline-block';
+
+                // Attempt to send to a backend endpoint. Replace /contact with your real endpoint.
+                fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(res => {
+                    if (!res.ok) throw new Error('Network response was not ok');
+                    // Keep success message visible and reset form
+                    form.reset();
+                    charCount.textContent = '0 / 2000';
+                }).catch(() => {
+                    // If backend isn't available, fallback to mailto to allow user to send via email client
+                    const subject = encodeURIComponent('Contact: ' + data.subject + ' — ' + data.name);
+                    const body = encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\n\n${data.message}`);
+                    window.location.href = `mailto:hello@roriskitchen.example?subject=${subject}&body=${body}`;
+                });
+            });
+
+            form.addEventListener('reset', () => {
+                nameError.textContent = '';
+                emailError.textContent = '';
+                successMsg.style.display = 'none';
+                setTimeout(() => charCount.textContent = '0 / 2000', 0);
+            });
+        })();
+    </script>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.5517238177968!2d27.961490210960793!3d-26.17872497699675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950a513c54b0b5%3A0x6cbc82a2f6e74ac5!2sRorich%20St%2C%20Newlands%2C%20Randburg%2C%202092!5e0!3m2!1sen!2sza!4v1762188398291!5m2!1sen!2sza" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</body>
+</html>

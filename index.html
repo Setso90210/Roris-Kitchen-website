@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rori's Community Kitchen</title>
+  <meta name="description" content="Community chef - classes, recipes, events and volunteering." />
+  <link rel="stylesheet" href="css-assets/styles.css" />
+
+  
+  <style>
+    :root{
+      --max-width:1100px;
+      --page-pad:1.25rem;
+      --accent:#db3cce;
+      --muted:#6b7280;
+      --bg:#fafafa;
+      --card-bg:#ffffff;
+      --radius:8px;
+      --gap:1rem;
+      --line:1.5;
+      font-size:16px;
+    }
+
+    html,body{height:100%;margin:0;background:var(--bg);color:#222;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;line-height:var(--line);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+
+    /* centered page container used across sections */
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 var(--page-pad);box-sizing:border-box;}
+
+    /* header */
+    .site-header{background:var(--card-bg);border-bottom:1px solid #eee;position:sticky;top:0;z-index:50;}
+    .site-header .container{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px;}
+    .logo .site-title{font-weight:700;font-size:1.125rem;color:var(--accent);text-decoration:none;}
+
+    /* nav */
+    .main-nav{display:flex;align-items:center;gap:1rem;}
+    .nav-list{display:flex;gap:0.5rem;list-style:none;margin:0;padding:0;}
+    .nav-list a{display:inline-block;padding:8px 10px;border-radius:6px;color:inherit;text-decoration:none;font-weight:600;}
+    .nav-list a:hover{background:#f2f2f2;}
+
+    /* hero */
+    .hero{background:linear-gradient(180deg, rgba(0,0,0,0.04), transparent);color:#111;min-height:60vh;display:flex;align-items:center;padding:2rem 0;}
+    .hero .panel{background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));padding:2rem;border-radius:var(--radius);box-shadow:0 6px 30px rgba(0,0,0,0.06);}
+
+    /* buttons */
+    .btn-primary{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;border:none;font-weight:700;margin-right:8px;display:inline-block;}
+    .btn-secondary{background:#fff;border:1px solid #ddd;padding:10px 14px;border-radius:8px;color:#111;text-decoration:none;font-weight:600;}
+
+    /* sections */
+    main > section{padding:2rem 0;border-bottom:1px solid #f0f0f0;background:transparent;}
+    h2{margin-top:0;margin-bottom:0.5rem;color:#111;}
+
+    /* cards grid used by classes and other lists */
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--gap);list-style:none;padding:0;margin:0;}
+    .card{background:var(--card-bg);padding:1rem;border-radius:var(--radius);box-shadow:0 6px 18px rgba(0,0,0,0.04);}
+
+    /* recipe list */
+    .recipe-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+
+    /* footer */
+    .site-footer{background:transparent;padding:1.25rem 0;color:var(--muted);}
+    .site-footer .container{display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+    .footer-links{display:flex;gap:0.5rem;list-style:none;margin:0;padding:0;}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:0.95rem;}
+
+    /* ----- ADDED: logo + hero background ----- */
+    .site-header .logo img { height:44px; width:auto; display:block; }
+    /* keep the text title for screen readers but visually hide it */
+    .logo .site-title { position:absolute !important; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+    .hero {
+      /* hero background image (replace path if needed) */
+      background-image: url(_Images/website\background.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #fff;
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      padding:2rem 0;
+    }
+    /* make the hero panel semi-opaque so text reads on top of image */
+    .hero .panel {
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      padding:2rem;
+      border-radius:var(--radius);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+    /* ----- end additions ----- */
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .site-header .container{height:auto;padding:0.6rem 0;flex-direction:column;align-items:flex-start;}
+      .nav-list{flex-wrap:wrap;}
+      .hero{min-height:40vh;padding:1rem 0;}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a class="logo" href="index.html" aria-label="Rori's Kitchen Home">
+        <img src="images/logo.png" alt="Rori's Kitchen logo">
+        <span class="site-title">Rori's Kitchen</span>
+      </a>
+      <nav class="main-nav" role="navigation" aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+        <ul id="primary-menu" class="nav-list">
+          <li><a href="info.html">About</a></li>
+          <li><a href="classes.html">Classes</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="enquire.html">Volunteer</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="gallery.html">Gallery</a></li> 
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" role="main">
+    <section class="hero" aria-label="Community chef hero">
+      <div class="container">
+        <div class="panel">
+          <h1>Cooking Together.</h1>
+          <p style="margin:.5rem 0 1rem;color:var(--muted)">Simple community cooking classes, seasonal recipes and volunteer opportunities.</p>
+          <p>
+            <a class="btn-primary" href="classes.html">Classes</a>
+            <a class="btn-secondary" href="enquire.html">Volunteer / Enquire</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p style="margin:.5rem 0;color:var(--muted)">We bring neighbours together through shared meals and hands-on learning.</p>
+      <p><a href="info.html" class="btn-secondary">Learn more</a></p>
+    </section>
+
+    <section class="container classes" aria-labelledby="classes-heading">
+      <h2 id="classes-heading">Upcoming</h2>
+      <ul class="card-grid" aria-live="polite">
+        <li class="card">
+          <h3>Beginner Basics</h3>
+          <p style="color:var(--muted);margin:.25rem 0">Knife skills and simple weeknight meals.</p>
+          <a class="btn-primary" href="classes.html">See classes</a>
+        </li>
+        <li class="card">
+          <h3>Community Baking</h3>
+          <p style="color:var(--muted);margin:.25rem 0">Hands-on bread & pastry sessions.</p>
+          <a class="btn-primary" href="classes.html">See classes</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="container recipes" aria-labelledby="recipes-heading">
+      <h2 id="recipes-heading">Recipes</h2>
+      <div class="recipe-list">
+        <article class="recipe-card">
+          <h3>fat cakes and mince</h3>
+          <a href="recipes/lentil-stew.html">View recipe</a>
+        </article>
+        <article class="recipe-card">
+          <h3>seven colours</h3>
+          <a href="recipes/flatbreads.html">View recipe</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="container events" aria-labelledby="events-heading">
+      <h2 id="events-heading">Next event</h2>
+      <p style="color:var(--muted);margin:.25rem 0;"><time datetime="2025-12-05">Dec 5, 2025</time> — Holiday Community Dinner (RSVP)</p>
+      <p><a href="events.html" class="btn-secondary">All events</a></p>
+    </section>
+
+    <section class="container contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <p style="color:var(--muted);margin:.25rem 0">Quick contact — we'll get back within a few days.</p>
+
+      <!-- simplified contact CTA; full form lives on contact.html -->
+      <p>
+        <a class="btn-primary" href="contact.html">Sign up / Contact</a>
+        <a class="btn-secondary" href="enquire.html">Volunteer</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; 2025 Rori's Kitchen — Registered community initiative.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/donate">Donate</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

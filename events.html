@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rori's Kitchen — Events</title>
+    <meta name="description" content="Upcoming cooking classes, tasting nights and special events at Rori's Kitchen." />
+    <style>
+        :root{
+            --bg:#faf8f5; --card:#fff; --muted:#666; --accent:#c65a2a; --accent-2:#2a7a6b;
+            --radius:10px; --maxw:1100px; --gap:18px; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0; background:linear-gradient(180deg,#fffaf6, #faf8f5); color:#222;
+            -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+        }
+        .wrap{max-width:var(--maxw); margin:28px auto; padding:20px}
+        header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+        .brand{display:flex;gap:12px;align-items:center}
+        .logo{width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px}
+        h1{margin:0;font-size:20px}
+        p.lead{margin:0;color:var(--muted);font-size:14px}
+
+        .controls{display:flex;gap:10px;align-items:center}
+        .search,input[type="search"]{padding:10px 12px;border:1px solid #e6e1de;border-radius:10px;background:#fff}
+        select{padding:10px;border-radius:10px;border:1px solid #e6e1de}
+        button.btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+        button.ghost{background:transparent;border:1px solid #e6e1de;color:var(--muted);padding:8px 12px;border-radius:8px}
+
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--gap);margin-top:18px}
+        .card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 18px rgba(30,30,30,0.06);display:flex;flex-direction:column}
+        .thumb{height:150px;background-size:cover;background-position:center}
+        .card-body{padding:14px;flex:1;display:flex;flex-direction:column}
+        .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px;margin-bottom:6px}
+        .title{font-weight:600;margin:0 0 8px 0}
+        .desc{flex:1;color:#444;font-size:14px;margin-bottom:12px}
+        .card-actions{display:flex;gap:8px;align-items:center}
+        .pill{padding:6px 10px;border-radius:999px;background:#f3f0ee;font-size:13px;color:var(--muted)}
+
+        footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center}
+
+        /* modal */
+        .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;padding:20px;z-index:30}
+        .modal{width:100%;max-width:500px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+        .modal h3{margin-top:0}
+        .field{margin-bottom:12px}
+        label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+        input[type="text"],input[type="email"],input[type="tel"],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e1de}
+        .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+
+        /* small */
+        @media (max-width:520px){
+            .brand{gap:8px}
+            .logo{width:48px;height:48px;font-size:18px}
+            header{flex-direction:column;align-items:flex-start;gap:10px}
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" role="main">
+        <header>
+            <div class="brand" aria-hidden="false">
+                <div class="logo" aria-hidden="true">RK</div>
+                <div>
+                    <h1>Rori's Kitchen — Events</h1>
+                    <p class="lead">Cooking classes, pop-ups and community tastings. Join us for a delicious time.</p>
+                </div>
+            </div>
+
+            <div class="controls" role="region" aria-label="Event controls">
+                <input id="search" type="search" placeholder="Search events..." aria-label="Search events" />
+                <select id="filter" aria-label="Filter events">
+                    <option value="upcoming">Upcoming</option>
+                    <option value="all">All</option>
+                    <option value="past">Past</option>
+                </select>
+                <button id="newEventBtn" class="btn" title="Add an event (demo)">Add event</button>
+            </div>
+        </header>
+
+        <section aria-label="Event list">
+            <div id="eventsGrid" class="grid" aria-live="polite">
+                <!-- event cards inserted by JS -->
+            </div>
+        </section>
+
+        <footer>
+            <p>All events are subject to change. For questions email <a href="mailto:hello@roriskitchen.example">ngobesetiisetso@gmail.com</a></p>
+        </footer>
+    </div>
+
+    <!-- RSVP / Event modal -->
+    <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal" role="document" aria-labelledby="modalTitle">
+            <h3 id="modalTitle">RSVP</h3>
+            <form id="rsvpForm">
+                <input type="hidden" id="eventId" />
+                <div class="field">
+                    <label for="name">Full name</label>
+                    <input id="name" type="text" required />
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" required />
+                </div>
+                <div class="field">
+                    <label for="notes">Notes (allergies, dietary)</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button id="cancel" type="button" class="ghost">Cancel</button>
+                    <button type="submit" class="btn">Send RSVP</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Minimal demo dataset. Replace or fetch from server in production.
+        const events = [
+            {
+                id: 'evt-1',
+                title: "Hands-on Pasta Workshop",
+                description: "Learn to make fresh pasta and sauces from scratch. Dough, cutting, and a tasting menu included.",
+                date: "2025-11-15",
+                time: "18:30",
+                end: "21:00",
+                location: "Rori's Kitchen — Studio A",
+                img: "images/pasta.jpg",
+                price: "R399"
+            },
+            {
+                id: 'evt-2',
+                title: "Weekend Brunch Pop-up",
+                description: "Seasonal brunch menu served family-style. Vegetarian options available.",
+                date: "2025-11-09",
+                time: "10:00",
+                end: "13:00",
+                location: "Rori's Kitchen — Dining Room",
+                img: "images/brunch.jpg",
+                price: "R250"
+            },
+            {
+                id: 'evt-3',
+                title: "Fermentation Basics — Kimchi & Pickles",
+                description: "Intro to safe fermentation techniques and recipes you can reproduce at home.",
+                date: "2025-10-20",
+                time: "17:00",
+                end: "19:00",
+                location: "Rori's Kitchen — Classroom",
+                img: "images/fermentation.jpg",
+                price: "$30"
+            }
+        ];
+
+        // Render events
+        const grid = document.getElementById('eventsGrid');
+        const searchInput = document.getElementById('search');
+        const filterSelect = document.getElementById('filter');
+
+        function isPast(dateStr){
+            const d = new Date(dateStr + 'T00:00:00');
+            const today = new Date(); today.setHours(0,0,0,0);
+            return d < today;
+        }
+
+        function renderList(){
+            const q = searchInput.value.trim().toLowerCase();
+            const filter = filterSelect.value;
+            grid.innerHTML = '';
+            const list = events.filter(ev => {
+                if(filter === 'upcoming' && isPast(ev.date)) return false;
+                if(filter === 'past' && !isPast(ev.date)) return false;
+                if(q && !(ev.title.toLowerCase().includes(q) || ev.description.toLowerCase().includes(q) || ev.location.toLowerCase().includes(q))) return false;
+                return true;
+            }).sort((a,b)=> new Date(a.date) - new Date(b.date));
+
+            if(list.length === 0){
+                grid.innerHTML = '<div style="grid-column:1/-1;padding:30px;text-align:center;color:var(--muted)">No events found.</div>';
+                return;
+            }
+
+            list.forEach(ev => {
+                const date = new Date(ev.date + 'T' + (ev.time||'00:00'));
+                const dateLabel = date.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+                const timeLabel = ev.time ? `${ev.time}` : '';
+                const card = document.createElement('article');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="thumb" style="background-image:url('${ev.img}');" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <div class="meta">
+                            <div class="pill"><time datetime="${ev.date}">${dateLabel}</time></div>
+                            <div class="pill">${timeLabel}</div>
+                            <div style="margin-left:auto;color:var(--muted);font-size:13px">${ev.price||''}</div>
+                        </div>
+                        <h4 class="title">${ev.title}</h4>
+                        <div class="desc">${ev.description}</div>
+                        <div class="card-actions">
+                            <div style="font-size:13px;color:var(--muted)">${ev.location}</div>
+                            <div style="margin-left:auto;display:flex;gap:8px">
+                                <button class="ghost" data-action="details" data-id="${ev.id}">Details</button>
+                                <button class="btn" data-action="rsvp" data-id="${ev.id}">RSVP</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Modal / RSVP
+        const backdrop = document.getElementById('modalBackdrop');
+        const rsvpForm = document.getElementById('rsvpForm');
+        const eventIdInput = document.getElementById('eventId');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const notesInput = document.getElementById('notes');
+        const cancelBtn = document.getElementById('cancel');
+
+        function openModal(ev){
+            eventIdInput.value = ev.id;
+            document.getElementById('modalTitle').textContent = 'RSVP — ' + ev.title;
+            nameInput.value = '';
+            emailInput.value = '';
+            notesInput.value = '';
+            backdrop.style.display = 'flex';
+            backdrop.setAttribute('aria-hidden','false');
+            nameInput.focus();
+        }
+
+        function closeModal(){
+            backdrop.style.display = 'none';
+            backdrop.setAttribute('aria-hidden','true');
+        }
+
+        grid.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if(!btn) return;
+            const id = btn.dataset.id;
+            const act = btn.dataset.action;
+            const ev = events.find(x=>x.id===id);
+            if(!ev) return;
+            if(act === 'rsvp'){
+                openModal(ev);
+            } else if(act === 'details'){
+                // simple details dialog using alert for demo; replace with richer UI if needed
+                alert(`${ev.title}\n\n${ev.description}\n\nWhen: ${ev.date} ${ev.time || ''}\nWhere: ${ev.location}\nPrice: ${ev.price || 'Free'}`);
+            }
+        });
+
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = eventIdInput.value;
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const notes = notesInput.value.trim();
+            if(!name || !email) return alert('Please enter name and email.');
+            // Demo: store RSVP in localStorage
+            const key = 'rk-rsvps';
+            const all = JSON.parse(localStorage.getItem(key) || '[]');
+            all.push({id, name, email, notes, ts: new Date().toISOString()});
+            localStorage.setItem(key, JSON.stringify(all));
+            closeModal();
+            alert('Thanks — your RSVP has been recorded (demo).');
+        });
+
+        cancelBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', (e)=> { if(e.target === backdrop) closeModal(); });
+        document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeModal(); });
+
+        // controls
+        searchInput.addEventListener('input', renderList);
+        filterSelect.addEventListener('change', renderList);
+        document.getElementById('newEventBtn').addEventListener('click', ()=>{
+            const id = 'evt-' + (Math.random()*1e6|0);
+            const today = new Date();
+            const iso = new Date(today.getTime() + 7*24*3600*1000).toISOString().slice(0,10);
+            const newEvt = {id, title: 'New Demo Event', description: 'A placeholder event created for demo.', date: iso, time: '18:00', location: "Rori's Kitchen", img: 'images/event-placeholder.jpg', price: 'Free'};
+            events.push(newEvt);
+            renderList();
+            // Scroll to bottom to show new event
+            setTimeout(()=>{ document.querySelector('#eventsGrid article:last-child').scrollIntoView({behavior:'smooth'}); }, 50);
+        });
+
+        // Initial render
+        renderList();
+
+        // Optional: inject JSON-LD for events (good for SEO)
+        (function injectJsonLd(){
+            const ld = {
+                "@context":"https://schema.org",
+                "@graph": events.map(ev => ({
+                    "@type":"Event",
+                    "@id": location.href + '#' + ev.id,
+                    "name": ev.title,
+                    "startDate": ev.date + 'T' + (ev.time || '00:00'),
+                    "endDate": ev.date + 'T' + (ev.end || (ev.time || '00:00')),
+                    "location": {
+                        "@type":"Place",
+                        "name": ev.location
+                    },
+                    "description": ev.description,
+                    "image": ev.img,
+                    "offers": {
+                        "@type":"Offer",
+                        "price": ev.price || "0",
+                        "priceCurrency": "R"
+                    }
+                }))
+            };
+            const s = document.createElement('script');
+            s.type = 'application/ld+json';
+            s.text = JSON.stringify(ld, null, 2);
+            document.head.appendChild(s);
+        })();
+    </script>
+</body>
+</html>

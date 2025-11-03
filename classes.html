@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rori's Kitchen — Classes</title>
+    <meta name="description" content="Hands-on cooking classes at Rori's Kitchen — schedules, pricing, instructors, and signup." />
+    <style>
+        :root{
+            --brand:#c94f3f;
+            --muted:#6b6b6b;
+            --bg:#fffaf6;
+            --card:#ffffff;
+            --radius:10px;
+            --max-width:1100px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            background:linear-gradient(180deg, #fffaf6 0%, #fff 60%);
+            color:#222;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:24px;
+            display:flex;
+            justify-content:center;
+        }
+        .container{
+            width:100%;
+            max-width:var(--max-width);
+        }
+        header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:16px;
+            margin-bottom:18px;
+        }
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+        .logo{
+            width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#ff8a65);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+            box-shadow:0 6px 18px rgba(201,79,63,.18);
+            font-size:20px;
+        }
+        nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-weight:600}
+        .hero{
+            background:var(--card);
+            border-radius:var(--radius);
+            padding:20px;
+            display:flex;
+            gap:18px;
+            align-items:center;
+            margin-bottom:20px;
+            box-shadow:0 6px 18px rgba(99,99,99,.06);
+        }
+        .hero .left{flex:1}
+        .hero h1{margin:0 0 6px 0;font-size:22px}
+        .hero p{margin:0;color:var(--muted)}
+        .hero .cta{margin-top:12px}
+        .btn{
+            display:inline-block;
+            background:var(--brand);
+            color:white;
+            padding:10px 14px;
+            border-radius:10px;
+            text-decoration:none;
+            font-weight:700;
+        }
+        main{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start}
+        @media (max-width:900px){main{grid-template-columns:1fr} header{flex-direction:column;align-items:start} nav{margin-top:8px} .hero{flex-direction:column}}
+        .cards{display:grid;gap:14px}
+        .card{
+            background:var(--card);
+            border-radius:12px;
+            padding:14px;
+            box-shadow:0 6px 18px rgba(99,99,99,.05);
+        }
+        .class-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+        .class-item{
+            border-radius:12px;
+            padding:12px;
+            background:linear-gradient(180deg,#fff,#fff7f2);
+            border:1px solid rgba(0,0,0,.03);
+        }
+        .class-item h3{margin:0 0 6px 0;font-size:16px}
+        .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+        .pill{
+            display:inline-block;padding:6px 8px;border-radius:999px;background:#fff3e8;color:#9b3b2c;font-weight:700;font-size:13px;
+        }
+        .price{font-weight:800;color:var(--brand)}
+        .instructor{display:flex;gap:10px;align-items:center;margin-top:10px}
+        .avatar{width:36px;height:36px;border-radius:999px;background:#ffe9e4;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#9b3b2c}
+        .sidebar .card{position:sticky;top:24px}
+        table{width:100%;border-collapse:collapse;font-size:14px}
+        th,td{padding:8px;text-align:left;border-bottom:1px solid #f3f3f3}
+        .faq summary{cursor:pointer;padding:8px 0;font-weight:700}
+        .signup-form label{display:block;font-size:13px;margin-top:10px;color:var(--muted)}
+        .signup-form input, .signup-form select, .signup-form button{
+            width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #eee;font-size:14px
+        }
+        .muted{color:var(--muted);font-size:13px}
+        footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+    </style>
+</head>
+<body>
+    <div class="container" role="main">
+        <header>
+            <div class="brand">
+                <div class="logo" aria-hidden="true">RK</div>
+                <div>
+                    <div style="font-weight:800">Rori's Kitchen</div>
+                    <div class="muted" style="font-size:13px">Hands-on cooking classes</div>
+                </div>
+            </div>
+            <nav aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="classes.html" aria-current="page">Classes</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero" aria-labelledby="classes-heading">
+            <div class="left">
+                <h1 id="classes-heading">Classes & Workshops</h1>
+                <p>Learn practical skills, recipes, and techniques in small, friendly groups. Suitable for beginners and home cooks who want to level up.</p>
+                <div class="cta">
+                    <a class="btn" href="#signup">Reserve a spot</a>
+                </div>
+            </div>
+            <div class="right" style="width:200px">
+                <div class="pill" aria-hidden="true">Small groups • All ages</div>
+                <div style="margin-top:12px;color:var(--muted);font-size:13px">Gift cards and private events available</div>
+            </div>
+        </section>
+
+        <main>
+            <section>
+                <div class="cards">
+                    <div class="card" aria-labelledby="upcoming">
+                        <h2 id="upcoming" style="margin:0 0 8px 0">Upcoming Classes</h2>
+                        <p class="muted" style="margin:0 0 12px 0">Choose a class and click "Details" to see dates and contents.</p>
+
+                        <div class="class-grid" aria-live="polite">
+                            <article class="class-item" aria-labelledby="basic-cooking">
+                                <h3 id="basic-cooking">Basic Cooking Essentials</h3>
+                                <div class="meta">2-hour workshop • Hands-on</div>
+                                <div><span class="price">R500</span> per person</div>
+                                <div class="instructor">
+                                    <div class="avatar" aria-hidden="true">R</div>
+                                    <div><div style="font-weight:700">Rori</div><div class="muted">Lead Instructor</div></div>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <button onclick="toggleDetails('d1')" aria-expanded="false" aria-controls="d1">Details</button>
+                                </div>
+                                <div id="d1" style="display:none;margin-top:8px" role="region" aria-hidden="true">
+                                    <p class="muted">Foundations: knife skills, stocks, seasoning, and quick weeknight dinners.</p>
+                                </div>
+                            </article>
+
+                            <article class="class-item" aria-labelledby="vegan-essentials">
+                                <h3 id="vegan-essentials">Vegan Essentials</h3>
+                                <div class="meta">2.5 hours • Plant-based</div>
+                                <div><span class="price">R600</span></div>
+                                <div class="instructor">
+                                    <div class="avatar" aria-hidden="true">M</div>
+                                    <div><div style="font-weight:700">Maya</div><div class="muted">Plant Chef</div></div>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <button onclick="toggleDetails('d2')" aria-expanded="false" aria-controls="d2">Details</button>
+                                </div>
+                                <div id="d2" style="display:none;margin-top:8px" role="region" aria-hidden="true">
+                                    <p class="muted">Hearty plant-based mains, dairy alternatives, and pantry staples.</p>
+                                </div>
+                            </article>
+
+                            <article class="class-item" aria-labelledby="baking-basics">
+                                <h3 id="baking-basics">Baking Basics</h3>
+                                <div class="meta">3 hours • Oven-focused</div>
+                                <div><span class="price">R650</span></div>
+                                <div class="instructor">
+                                    <div class="avatar" aria-hidden="true">L</div>
+                                    <div><div style="font-weight:700">Luca</div><div class="muted">Pastry Instructor</div></div>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <button onclick="toggleDetails('d3')" aria-expanded="false" aria-controls="d3">Details</button>
+                                </div>
+                                <div id="d3" style="display:none;margin-top:8px" role="region" aria-hidden="true">
+                                    <p class="muted">Breads, quick pastries, and oven techniques for reliable results.</p>
+                                </div>
+                            </article>
+
+                            <article class="class-item" aria-labelledby="kids-cooking">
+                                <h3 id="kids-cooking">Kids: Fun & Safe Cooking</h3>
+                                <div class="meta">90 minutes • Ages 6–12</div>
+                                <div><span class="price">R800</span></div>
+                                <div class="instructor">
+                                    <div class="avatar" aria-hidden="true">T</div>
+                                    <div><div style="font-weight:700">Tara</div><div class="muted">Youth Instructor</div></div>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <button onclick="toggleDetails('d4')" aria-expanded="false" aria-controls="d4">Details</button>
+                                </div>
+                                <div id="d4" style="display:none;margin-top:8px" role="region" aria-hidden="true">
+                                    <p class="muted">Interactive, safe, and delicious—kids cook, taste, and take recipes home.</p>
+                                </div>
+                            </article>
+
+                            <article class="class-item" aria-labelledby="private-events">
+                                <h3 id="private-events">Private Events & Team Building</h3>
+                                <div class="meta">Custom duration • Groups up to 20</div>
+                                <div><span class="price">From R2 500</span></div>
+                                <div style="margin-top:10px">
+                                    <button onclick="toggleDetails('d5')" aria-expanded="false" aria-controls="d5">Details</button>
+                                </div>
+                                <div id="d5" style="display:none;margin-top:8px" role="region" aria-hidden="true">
+                                    <p class="muted">Tailored menus, dietary accommodations, and full-service options.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="card" aria-labelledby="schedule">
+                        <h2 id="schedule" style="margin:0 0 8px 0">Weekly Schedule</h2>
+                        <table>
+                            <thead>
+                                <tr><th>Day</th><th>Class</th><th>Time</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Mon</td><td>Basic Cooking</td><td>6:00pm — 8:00pm</td></tr>
+                                <tr><td>Wed</td><td>Baking Basics</td><td>5:30pm — 8:30pm</td></tr>
+                                <tr><td>Sat</td><td>Vegan Essentials</td><td>10:00am — 12:30pm</td></tr>
+                                <tr><td>Sun</td><td>Kids Cooking</td><td>9:00am — 10:30pm</td></tr>
+                            </tbody>
+                        </table>
+                        <p class="muted" style="margin-top:8px">New dates added monthly. Can't find a time? Contact us for private sessions.</p>
+                    </div>
+
+                    <div class="card" aria-labelledby="faq">
+                        <h2 id="faq" style="margin:0 0 8px 0">FAQ</h2>
+                        <details class="faq">
+                            <summary>What should I bring?</summary>
+                            <div class="muted">Just yourself — aprons, tools, and ingredients are provided. Bring a notebook if you like.</div>
+                        </details>
+                        <details class="faq">
+                            <summary>Dietary restrictions?</summary>
+                            <div class="muted">We accommodate common allergies and dietary preferences. Please note them when you sign up.</div>
+                        </details>
+                        <details class="faq">
+                            <summary>Cancellation policy?</summary>
+                            <div class="muted">Full refund up to 7 days prior; 50% refund within 7 days. See full policy on the booking page.</div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <div class="card">
+                    <h3 style="margin:0 0 8px 0">Reserve a Spot</h3>
+                    <form id="signup" class="signup-form" action="#" method="post" onsubmit="event.preventDefault(); alert('Thanks — we will contact you to confirm.');">
+                        <label for="class">Class</label>
+                        <select id="class" name="class" required>
+                            <option>Basic Cooking — Mon 6pm</option>
+                            <option>Vegan Essentials — Sat 10am</option>
+                            <option>Baking Basics — Wed 5:30pm</option>
+                            <option>Kids Cooking — Sun 09:00am</option>
+                            <option>Private Event — inquire</option>
+                        </select>
+
+                        <label for="name">Full name</label>
+                        <input id="name" name="name" type="text" placeholder="Your name" required>
+
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="you@gmail.com" required>
+
+                        <label for="tickets">Tickets</label>
+                        <select id="tickets" name="tickets">
+                            <option>1</option><option>2</option><option>3</option><option>4</option>
+                        </select>
+
+                        <button type="submit" class="btn" style="margin-top:12px">Request Reservation</button>
+                    </form>
+
+                    <div style="margin-top:16px" class="muted">
+                        Private classes, corporate events, and gift cards available. Call: <strong>(067) 445 6743</strong>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:12px">
+                    <h3 style="margin:0 0 8px 0">Meet the Team</h3>
+                    <div style="display:flex;gap:10px;align-items:center">
+                        <div style="width:56px">
+                            <div class="avatar" style="width:56px;height:56px;font-size:18px">R</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:700">Rori</div>
+                            <div class="muted">Founder & Head Chef</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            <div>© <span id="year"></span> Rori's Kitchen — All rights reserved</div>
+        </footer>
+    </div>
+
+    <script>
+        // Small interactions: toggle details and year
+        function toggleDetails(id){
+            var el = document.getElementById(id);
+            var btn = event.currentTarget;
+            var expanded = el.style.display !== 'none';
+            el.style.display = expanded ? 'none' : 'block';
+            el.setAttribute('aria-hidden', expanded ? 'true' : 'false');
+            btn.setAttribute('aria-expanded', (!expanded).toString());
+        }
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html></div>

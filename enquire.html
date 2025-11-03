@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Enquire — Roris Kitchen</title>
+    <style>
+        :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.4;color:#222}
+        body{padding:24px;background:#f7f7f8}
+        .card{max-width:720px;margin:0 auto;background:#fff;border-radius:8px;padding:20px;box-shadow:0 6px 18px rgba(20,20,30,.06)}
+        h1{margin:0 0 12px;font-size:20px}
+        form{display:grid;gap:12px}
+        label{font-size:13px;color:#333}
+        input[type="text"],input[type="email"],input[type="tel"],select,textarea{
+            width:100%;padding:10px;border:1px solid #d7d7db;border-radius:6px;font:inherit;
+        }
+        textarea{min-height:120px;resize:vertical}
+        .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .actions{display:flex;gap:8px;align-items:center}
+        button{background:#0b78f0;color:#fff;border:0;padding:10px 14px;border-radius:6px;cursor:pointer}
+        button[disabled]{opacity:.6;cursor:default}
+        .note{font-size:13px;color:#666}
+        .success{padding:10px;border-radius:6px;background:#e6ffef;border:1px solid #bdeac9;color:#05612b}
+        @media(max-width:560px){.row{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <main class="card" aria-labelledby="title">
+        <h1 id="title">Enquire — Roris Kitchen</h1>
+        <p class="note">Fill out this form and we'll get back to you within 48 hours.</p>
+
+        <form id="enquireForm" novalidate>
+            <div class="row">
+                <div>
+                    <label for="fullname">Full name</label>
+                    <input id="fullname" name="fullname" type="text" required autocomplete="name" />
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required autocomplete="email" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div>
+                    <label for="phone">Phone (optional)</label>
+                    <input id="phone" name="phone" type="tel" pattern="[\d+\-\s()]{6,30}" autocomplete="tel" />
+                </div>
+                <div>
+                    <label for="type">Enquiry type</label>
+                    <select id="type" name="type" required>
+                        <option value="">Choose…</option>
+                        <option>General question</option>
+                        <option>Booking / Reservation</option>
+                        <option>Menu / Catering</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required placeholder="Tell us what you'd like to know..."></textarea>
+            </div>
+
+            <div>
+                <label style="display:flex;align-items:center;gap:8px">
+                    <input id="contactOk" name="contactOk" type="checkbox" required />
+                    <span>I agree to be contacted about this enquiry.</span>
+                </label>
+            </div>
+
+            <div class="actions">
+                <button type="submit" id="submitBtn">Send enquiry</button>
+                <div id="status" aria-live="polite" style="min-width:180px"></div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+       
+        (function(){
+            const form = document.getElementById('enquireForm');
+            const status = document.getElementById('status');
+            const submitBtn = document.getElementById('submitBtn');
+            const recipient = 'ngobesetiisetso@gmail.com'; 
+
+            function setStatus(text, success) {
+                status.innerHTML = '';
+                const el = document.createElement('div');
+                el.className = success ? 'success' : 'note';
+                el.textContent = text;
+                status.appendChild(el);
+            }
+
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                setStatus('Preparing message…');
+
+                const data = {
+                    name: form.fullname.value.trim(),
+                    email: form.email.value.trim(),
+                    phone: form.phone.value.trim(),
+                    type: form.type.value,
+                    message: form.message.value.trim()
+                };
+
+                
+                const subject = encodeURIComponent(`[Enquiry] ${data.type} — ${data.name}`);
+                const bodyLines = [
+                    `Name: ${data.name}`,
+                    `Email: ${data.email}`,
+                    `Phone: ${data.phone || 'N/A'}`,
+                    `Type: ${data.type}`,
+                    '',
+                    'Message:',
+                    data.message
+                ];
+                const body = encodeURIComponent(bodyLines.join('\n'));
+                const mailto = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+                
+                window.location.href = mailto;
+
+                
+                setTimeout(function(){
+                    setStatus('If your email client did not open, copy your message and send it to ' + recipient + '.', true);
+                    submitBtn.disabled = false;
+                }, 800);
+            });
+        })();
+    </script>
+</body>
+</html>
